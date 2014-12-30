@@ -22,15 +22,14 @@ jQuery(function()
 
     switch( action.split('/')[0] )
     {
-      case 'section'
+      case 'section':
         var section_name = action.split('/')[1];
         section_change( section_name );
         section_history.push( section_name );
       break;
-      case 'back'
+      case 'back':
         section_change( section_history.pop() );
       break;
-      case ''
 
     }
 
