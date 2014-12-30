@@ -2,10 +2,10 @@
 jQuery(function()
 {
 
-  var section_history = [];
+  var section_history = ['main_view'];
   var section_change = function(section_name)
   {
-    back_button.toggle( section_history.length > 0 );
+    back_button.toggle( section_history.length > 1 );
 
     jQuery('section').hide();
     jQuery("#"+section_name).show();
