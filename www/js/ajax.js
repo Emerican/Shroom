@@ -7,33 +7,33 @@ jQuery(function()
 
   var resource_params = {};
 
-  resource.forEach(function(res)
+  resources.forEach(function(res)
   {
     resource_params[res] = ['id','created_at','updated_at','synced'];
   });
 
-  resource_params.bills.concat(
+  resource_params.bills = resource_params.bills.concat(
     ['client_id']
   );
-  resource_params.client_groups.concat(
+  resource_params.client_groups = resource_params.client_groups.concat(
     ['name']
   );
-  resource_params.clients.concat(
+  resource_params.clients = resource_params.clients.concat(
     ['card_id','name','surname','client_group_id','phone','email','postpay']
   );
-  resource_params.discounts.concat(
+  resource_params.discounts = resource_params.discounts.concat(
     ['client_id','client_group_id','product_id','product_group_id','amount']
   );
-  resource_params.payments.concat(
+  resource_params.payments = resource_params.payments.concat(
     ['client_id','amount']
   );
-  resource_params.product_groups.concat(
+  resource_params.product_groups = resource_params.product_groups.concat(
     ['name']
   );
-  resource_params.products.concat(
+  resource_params.products = resource_params.products.concat(
     ['product_group_id','name','price','description']
   );
-  resource_params.purchases.concat(
+  resource_params.purchases = resource_params.purchases.concat(
     ['product_id','bill_id','count']
   );
 
@@ -189,6 +189,8 @@ jQuery(function()
 
     ns.new = function( params )
     {
+      var self = this;
+
       var new_object = {};
       resource_params[this.class_name].forEach(function(param)
       {
@@ -196,7 +198,7 @@ jQuery(function()
         {
           new_object[param] = UUID.generate();
         }
-        else if( params[param] )
+        else if( params && params[param] )
         {
           new_object[param] = params[param];
         }
