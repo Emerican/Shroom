@@ -5,33 +5,32 @@ jQuery(function()
   // resource list
   var resources = [ "bills", "client_groups", "clients", "discounts", "payments", "product_groups", "products", "purchases"];
 
-
   // bind event handlers to resources
   window.Mints = {
     utilities:{
       connection: function( resource, id, type, callback )
       {
         var resource_id = "";
+        var sub_resource = "";
+        var data={};
+
         if( id && !isNaN(id) )
         {
           resource_id = "/" + id;
         }
-        var sub_resource = "";
         if (resource.indexOf('/') != -1 )
         {
           sub_resource = "/" + resource.split('/')[1];
           resource = resource.split('/')[0];
         }
 
-        var data={};
         if( type == 'post' )
         {
           var resource_singular = resource.substring(0, resource.length - 1);
           data[resource_singular] = Mints[resource].data[id];
-          
+
           if(id && !isNaN(id))
           {
-
             data._method = "patch";
           }
 
