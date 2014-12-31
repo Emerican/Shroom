@@ -5,6 +5,39 @@ jQuery(function()
   // resource list
   var resources = [ "bills", "client_groups", "clients", "discounts", "payments", "product_groups", "products", "purchases"];
 
+  var resource_params = {};
+
+  resource.forEach(function(res)
+  {
+    resource_params[res] = ['id','created_at','updated_at','synced'];
+  });
+
+  resource_params.bills.concat(
+    ['client_id']
+  );
+  resource_params.client_groups.concat(
+    ['name']
+  );
+  resource_params.clients.concat(
+    ['card_id','name','surname','client_group_id','phone','email','postpay']
+  );
+  resource_params.discounts.concat(
+    ['client_id','client_group_id','product_id','product_group_id','amount']
+  );
+  resource_params.payments.concat(
+    ['client_id','amount']
+  );
+  resource_params.product_groups.concat(
+    ['name']
+  );
+  resource_params.products.concat(
+    ['product_group_id','name','price','description']
+  );
+  resource_params.purchases.concat(
+    ['product_id','bill_id','count']
+  );
+
+
   // bind event handlers to resources
   window.Mints = {
     utilities:{
@@ -26,6 +59,7 @@ jQuery(function()
 
         if( type == 'post' )
         {
+          Mints[resource].data[id].synced = true;
           var resource_singular = resource.substring(0, resource.length - 1);
           data[resource_singular] = Mints[resource].data[id];
 
@@ -151,6 +185,29 @@ jQuery(function()
           Mints.u.connection( self.class_name, id, "post", function(){ self.trigger('sync') } );
         }
       }
+    };
+
+    ns.new = function( params )
+    {
+      var new_object = {};
+      resource_params[this.class_name].forEach(function(param)
+      {
+        if(param == 'id')
+        {
+          new_object[param] = UUID.generate();
+        }
+        else if( params[param] )
+        {
+          new_object[param] = params[param];
+        }
+        else
+        {
+          new_object[param] = null;
+        }
+
+      });
+
+      Mints.u.save_to_data( self, new_object );
     };
   });
 
