@@ -7,14 +7,76 @@ jQuery(function()
 
 
   // bind event handlers to resources
-  window.Mints = {};
+  window.Mints = {
+    utilities:{
+      connection: function( resource, id, type, callback )
+      {
+        var resource_id = "";
+        if( id && !isNaN(id) )
+        {
+          resource_id = "/" + id;
+        }
+        var sub_resource = "";
+        if (resource.indexOf('/') != -1 )
+        {
+          sub_resource = "/" + resource.split('/')[1];
+          resource = resource.split('/')[0];
+        }
+
+        var data;
+        if( type == 'post' )
+        {
+          data = Mints[resource].data[id];
+        }
+
+        jQuery.ajax(
+        {
+          url: serverAdress+"/"+ resource + resource_id + sub_resource +".json",
+          type: type,
+          dataType: "json",
+          data: data,
+          success: function( json )
+          {
+            callback( json );
+          }
+        });
+      },
+      save_to_data: function(resource, data)
+      {
+        data.synced = true;
+
+        if( !resource.data[data.id] )
+        {
+          resource.data[data.id] = data;
+        }
+        else
+        {
+          var d_local = new Date(resource.data[data.id].updated_at);
+          var d_server = new Date(data.updated_at);
+
+          if (d_local > d_server)
+          {
+            resource.data[data.id].synced = false;
+          }
+          else if (d_local < d_server)
+          {
+            resource.data[data.id] = data;
+          }
+        }
+      }
+    }
+  };
+  Mints.u = Mints.utilities;
+
   resources.forEach(function(res)
   {
     window.Mints[res] = {};
     var ns = window.Mints[res];
 
+    ns.class_name = res;
     ns.data = {};
     ns.events = {};
+
     /**
   	 * on()
   	 */
@@ -44,47 +106,44 @@ jQuery(function()
   			}
   		}
   	};
-  });
 
-  var connection = function( resource, id, type, callback )
-  {
-    var resource_id = "";
-    if( id && !isNaN(id) )
+    /**
+  	 * get_data()
+  	 */
+    ns.get_data = function(id)
     {
-      resource_id = "/" + id;
-    }
-    var sub_resource = "";
-    if (resource.indexOf('/') != -1 )
-    {
-      sub_resource = "/" + resource.split('/')[1];
-      resource = resource.split('/')[0];
-    }
+      var self = this;
 
-    jQuery.ajax(
-    {
-      url: serverAdress+"/"+ resource + resource_id + sub_resource +".json",
-      type: type,
-      dataType: "json",
-      success: function( json )
+      Mints.u.connection(self.class_name, id, "get", function(data)
       {
-        callback( json );
-      }
-    });
-  };
+        if( Object.prototype.toString.call( data ) === '[object Array]' )
+        {
+          data.forEach(function(item)
+          {
+            Mints.u.save_to_data( self, item );
+          });
+        }
+        else
+        {
+          Mints.u.save_to_data( self, data );
+        }
 
-  // for /clients/:client_id/payments.json use clients/payments as resource etc.
-  Mints.getData = function(resource, id)
-  {
-    connection(resource, id, "get", function(data)
+        self.trigger('change');
+      });
+    };
+
+    ns.sync = function()
     {
-      window.Mints[resource].data[data.id] = data;
-      window.Mints[resource].trigger('change');
-    });
-  };
-  Mints.postData = function(resource, id)
-  {
-    connection(resource, id, "post", function(){ window.Mints[resource].trigger('change') });
-  };
+      var self = this;
 
+      for( var id in self.data )
+      {
+        if( !self.data[id].synced )
+        {
+          Mints.u.connection( self.class_name, id, "post", function(){ self.trigger('sync') } );
+        }
+      }
+    };
+  });
 
 });
