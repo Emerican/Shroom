@@ -23,10 +23,19 @@ jQuery(function()
           resource = resource.split('/')[0];
         }
 
-        var data;
+        var data={};
         if( type == 'post' )
         {
-          data = Mints[resource].data[id];
+          var resource_singular = resource.substring(0, resource.length - 1);
+          data[resource_singular] = Mints[resource].data[id];
+          
+          if(id && !isNaN(id))
+          {
+
+            data._method = "patch";
+          }
+
+          data.utf8 = "✓";
         }
 
         jQuery.ajax(
