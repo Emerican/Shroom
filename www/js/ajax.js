@@ -85,7 +85,10 @@ jQuery(function()
       },
       save_to_data: function(resource, data)
       {
-        data.synced = true;
+        if( !'synced' in data )
+        {
+          data.synced = true;
+        }
 
         if( !resource.data[data.id] )
         {
