@@ -5,61 +5,88 @@
   <meta charset="utf-8" />
   <meta name="format-detection" content="telephone=no" />
   <meta name="msapplication-tap-highlight" content="no" />
+  <meta content="width=device-width, target-densitydpi=device-dpi, initial-scale=1" name="viewport">
   <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
   <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
   <link rel="stylesheet" type="text/css" href="css/index.css" />
   <title>Shroom</title>
 </head>
 
-<body class="main_view">
+<body class="main">
   <nav>
-    <button action="back">Back</button>
-    <h3>Add product</h3>
-    <button action="section/settings">Settings</button>
-    <button action="section/new_order">New Order</button>
+    <ul id="navbar">
+      <li><button action="back">Back</button> </li>
+      <li><p>Add product</p></li>
+      <li><button action="section/settings">Settings</button></li>
+      <li><button action="section/new_order">New Order</button></li>
+    </ul>
   </nav>
 
-  <div class="app">
-    <h1>PhoneGap</h1>
-    <div id="deviceready" class="blink">
-      <p class="event listening">Connecting to Device</p>
-      <p class="event received">Device is Ready</p>
-    </div>
-  </div>
-
-  <section id="main_view">
+  <section id="main">
     <button action="section/products">Products</button>
     <button action="section/users">Users</button>
     <button action="section/reports">Reports</button>
-    <button>Settings</button>
+    <button action="section/settings">Settings</button>
   </section>
 
 
-  <section id="products_view">
+  <section id="products">
     <button action="section/add_product">add product</button>
-    <button action="section/browse_products">browse products</button>
+    <button action="section/browse_product">browse products</button>
   </section>
 
-  <section id="add_product_view"> </section>
-
-  <section id="browse_product_view">
+  <section id="add_product">
+    <form>
+      <div class="field>"><label for="group">Grupa</label><select></select></div>
+      <div class="field"><label for="name">Nosaukums</label><input type="text" id="name"></div>
+      <div class="field"><label for="price">Cena</label><input type="number" step="any"id="price"></div> <!-- step any jānočeko-->
+      <button>Submit</button>
+  </form>
   </section>
 
-  <section id="users_view">
-    <button action="section/add_user">add user or group</button>
+  <section id="browse_product">
+      <!-- nav skaidrs vēl -->
+  </section>
+
+  <section id="users">
+    <button action="section/add_user">add user</button>
+    <button action="section/add_group">add group</button>
     <button action="section/browse_users">browse users</button>
+    <button action="section/browse_groups">browse groups</button>
   </section>
 
-  <section id="new_user_view">
+  <section id="add_user">
+    <form id="new_user_form">
+      <div class="field"><label for="name">Vārds</label><input type="text" id="name"></div>
+      <div class="field"><label for="surname">Uzvārds</label><input type="text" id="surname"></div>
+      <div class="field"><label for="phone">Tālrunis</label><input type="number" id="phone"></div>
+      <div class="field"><label for="email">E-Pasts</label><input type="email" id="email"></div>
+      <div class="field>"><label for="group">Grupa</label><select></select></div> <!-- placeholder for now -->
+      <button>Submit</button>
+    </form>
   </section>
 
-  <section id="browse_users_view">
+  <section id="add_group">
+  <form>
+    <div class="field"><label for="name">Nosaukums</label><input type="text" id="group_name"></div>
+    <button>Submit</button>
+  </form>
+  </section>
+
+
+  <section id="browse_users">
+    <!-- nav skaidrs vēl -->
+  </section>
+  <section id="browse_groups">
+    <!-- nav skaidrs vēl -->
   </section>
 
   <section id="reports">
+    <!-- last thing in this bitch -->
   </section>
 
   <section id="settings">
+    <!-- or maybe this is last -->
   </section>
 
 

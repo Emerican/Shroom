@@ -7,8 +7,9 @@ jQuery(function()
   var navigation = container.find('nav');
 
   var section_history = [];
-  var current_section = "main_view";
-  
+  var current_section = "main";
+  var last_section = current_section;
+
   var section_change = function(section_name)
   {
     current_section = section_name;
@@ -20,7 +21,7 @@ jQuery(function()
   navigation.on('change',function()
   {
     back_button.toggle( section_history.length > 0 );
-    navigation.find('h3').html( current_section );
+    navigation.find('p').html( current_section );
 
   }).trigger('change');;
 
@@ -43,7 +44,6 @@ jQuery(function()
       break;
 
     }
-
     return false;
   });
 });
