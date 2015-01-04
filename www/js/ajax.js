@@ -5,6 +5,13 @@ jQuery(function()
   // resource list
   var resources = [ "bills", "client_groups", "clients", "discounts", "payments", "product_groups", "products", "purchases"];
 
+  var has_many_relations = {
+    product_groups: ["products"],
+    client_groups: ["clients"],
+    clients: ["payments","bills"],
+    bills: ["purchases"]
+  }
+
   var resource_params = {};
 
   resources.forEach(function(res)
@@ -85,7 +92,35 @@ jQuery(function()
       },
       save_to_data: function(resource, data)
       {
-        if( !'synced' in data )
+        if (has_many_relations[resource.class_name])
+        {
+          has_many_relations[resource.class_name].forEach(function(rel)
+          {
+            data[rel] = function(){
+
+              var self = Mints[rel];
+              Mints.u.connection(resource.class_name+"/"+rel, data.id, "get", function(data)
+              {
+                if( Object.prototype.toString.call( data ) === '[object Array]' )
+                {
+                  data.forEach(function(item)
+                  {
+                    Mints.u.save_to_data( self, item );
+                  });
+                }
+                else
+                {
+                  Mints.u.save_to_data( self, data );
+                }
+
+                self.trigger('change');
+              });
+            };
+          });
+        }
+
+
+        if( typeof data.synced == 'undefined' )
         {
           data.synced = true;
         }
