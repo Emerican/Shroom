@@ -42,6 +42,20 @@ jQuery(function()
       case 'back':
         section_change( section_history.pop() );
       break;
+      case 'new':
+        
+        var form = target.parents('form');
+        var resource_name = action.split('/')[1];
+
+        if( form.length == 1 )
+        {
+          Mints[resource_name].new( form.serialize() );
+
+          // handle data refresh in .on('change',function(){}) event
+          target.parents('section').trigger('change');
+        }
+
+      break;
 
     }
     return false;
