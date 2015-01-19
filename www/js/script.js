@@ -4,7 +4,6 @@ jQuery(function()
 
   var container = jQuery('body');
   var buttons = container.find('button, .button');
-  var forms = container.find('form');
   var back_button = container.find('button[action="back"]');
   var navigation = container.find('nav');
 
@@ -56,7 +55,7 @@ jQuery(function()
     return !prevent_default;
   });
 
-  forms.on('submit',function()
+  container.on('submit', 'form',function()
   {
     var form = jQuery(this);
     var action = target.attr('action') || target.find('button, .button').attr('action');
