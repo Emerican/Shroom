@@ -70,7 +70,7 @@ jQuery(function()
       break;
 
       case 'set':
-        Mints[resource_name][resource_id].set( form.serialize() );
+        Mints.[resource_name].get(resource_id]).set( form.serialize() );
       break;
 
     }
