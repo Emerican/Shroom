@@ -1,8 +1,10 @@
 
 jQuery(function()
 {
+
   var container = jQuery('body');
   var buttons = container.find('button, .button');
+  var forms = container.find('form');
   var back_button = container.find('button[action="back"]');
   var navigation = container.find('nav');
 
@@ -30,6 +32,8 @@ jQuery(function()
     var target = jQuery(this);
     var action = target.attr('action');
 
+    var prevent_default = true;
+
     switch( action.split('/')[0] )
     {
       case 'section':
@@ -42,22 +46,37 @@ jQuery(function()
       case 'back':
         section_change( section_history.pop() );
       break;
+
       case 'new':
-        
-        var form = target.parents('form');
-        var resource_name = action.split('/')[1];
-
-        if( form.length == 1 )
-        {
-          Mints[resource_name].new( form.serialize() );
-
-          // handle data refresh in .on('change',function(){}) event
-          target.parents('section').trigger('change');
-        }
-
+      case 'set':
+        prevent_default = false;
       break;
 
     }
+    return !prevent_default;
+  });
+
+  forms.on('submit',function()
+  {
+    var form = jQuery(this);
+    var action = target.attr('action') || target.find('button, .button').attr('action');
+    var resource_id = target.attr('resource_uuid') || target.find('[name="uuid"]').val();
+    var resource_name = action.split('/')[1];
+
+    switch( action.split('/')[0] )
+    {
+      case 'new':
+        Mints[resource_name].new( form.serialize() );
+      break;
+
+      case 'set':
+        Mints[resource_name][resource_id].set( form.serialize() );
+      break;
+
+    }
+
+    // handle data refresh in .on('change',function(){}) event
+    target.parents('section').trigger('change');
     return false;
   });
 });
