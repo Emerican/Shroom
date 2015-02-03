@@ -14,13 +14,13 @@
 
 <body class="main">
   <nav>
-    <button action="back">Back</button>
-    <div class="nav_title">Add product</div>
-    <button action="section/settings">Settings</button>
-    <button action="section/new_order">New Order</button>
+    <ul id="navbar">
+      <li id="back_button"><button action="back">Back</button> </li>
+      <li id="settings_button"><button action="section/settings">Settings</button></li>
+      <li id="current_page_title"><p>Add product</p></li>
+      <li id="new_order_button"><button action="section/new_order">New Order</button></li>
     </ul>
   </nav>
-
   <section id="main">
     <button action="section/products">Products</button>
     <button action="section/users">Users</button>
@@ -43,7 +43,7 @@
   </form>
   </section>
 
-  <section id="browse_product">
+  <section id="browse_products">
       <!-- nav skaidrs vēl -->
   </section>
 
@@ -56,18 +56,20 @@
 
   <section id="add_user">
     <form id="new_user_form">
-      <div class="field"><label for="name">Vārds</label><input type="text" id="name"></div>
-      <div class="field"><label for="surname">Uzvārds</label><input type="text" id="surname"></div>
-      <div class="field"><label for="phone">Tālrunis</label><input type="number" id="phone"></div>
-      <div class="field"><label for="email">E-Pasts</label><input type="email" id="email"></div>
+      <div class="field"><label for="name">Vārds:</label><input type="text" id="name"></div>
+      <div class="field"><label for="surname">Uzvārds:</label><input type="text" id="surname"></div>
+      <div class="field"><label for="phone">Tālrunis:</label><input type="number" id="phone"></div>
+      <div class="field"><label for="email">E-Pasts:</label><input type="email" id="email"></div>
       <div class="field>"><label for="group">Grupa</label><select></select></div> <!-- placeholder for now -->
       <button>Submit</button>
     </form>
   </section>
 
+
+
   <section id="add_group">
   <form>
-    <div class="field"><label for="name">Nosaukums</label><input type="text" id="group_name"></div>
+    <div class="field"><label for="name">Nosaukums:</label><input type="text" id="group_name"></div>
     <button>Submit</button>
   </form>
   </section>
@@ -87,7 +89,6 @@
   <section id="settings">
     <!-- or maybe this is last -->
   </section>
-
 
 
   <script type="text/javascript" src="cordova.js"></script>

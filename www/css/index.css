@@ -1,53 +1,127 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-
 html,body
 {
-  height: 100%;
+  background-color:black;
 }
 body {
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
-  margin: 0;
+    margin: 0;
+}
+#main
+{
+  display:block;
+  width:250px;
+  margin-left:auto;
+  margin-right:auto;
+}
+#main > button{
+  margin:10px 10px 10px 10px;
+  height:100px;
+  width:100px;
 }
 
 section
 {
-  padding-top: 40px;
+  margin-top: 100px;
   display: none;
+  background-color:purple;
+  width:100%;
   height:100%;
 }
-#main
-{
-  display: block;
-  clear:both;
+
+#products,#settings,#users,#reports{ /*some more probs*/
+  margin-left:auto;
+  margin-right:auto;
+  width:250px;
 }
-nav
-{
-  width:100%;
+#products > button ,#settings > button,#users > button,#reports > button{
+  margin:10px 10px 10px 10px;
+  height:100px;
+  width:100px;
+}
+#products,#settings,#users,#reports{ /*some more probs*/
+}
+
+
+/*navigation*/
+button{
+  height:75px;
+  width:75px;
+}
+nav{
   position:fixed;
   top:0;
   left:0;
-  padding: 10px 10px;
+  width:100%;
+  background-color:yellow;
+  border:1px solid black;
+}
+nav ul { /*overflow:hidden;?*/
+    margin: 0;
+    padding: 0;
+}
+nav ul li{
+  list-style:none;
+  padding-left:5px;
+  padding-right:5px;
+  background-color:green;
+  float:left;
+}
+#current_page_title{
+  background-color:red;
+  margin-left:auto;
+  margin-right:auto;
+  width:75%;
+  height:75px;
+}
+#current_page_title p{
+  text-align:center;
+  font:Helvetica;
+  font-size:25px;
+  position: relative;
+  top: 15%;
+  transform: translateY(-50%);
+}
+#new_order_button{
+  position:absolute;
+  right:0px;
+  border:none;
+}
+/*TextFields*/
+#add_user,#add_group,#browse_users,#browse_groups,#add_product,#browse_products{
+  width:45%;
   margin-left:auto;
   margin-right:auto;
 }
-nav > *
-{
-  float: left;
+#new_user_form{
+  margin:0;
+  padding:0;
+  padding-top:30px;
+  width:100%;
+}
+
+input{
+  display:block;
+  font-size:18px;
+  padding:10px;
+  width:70%;
+  margin-bottom:30px;
+  margin-left:auto;
+  margin-right:auto;
+}
+label{
+  display:block;
+  width:70%;
+  margin-bottom:8px;
+  font-size:20px;
+  margin-left:auto;
+  margin-right:auto;
+}
+select{
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+  font-size:20px;
+  padding:10px;
+  width:80%;
+  margin-bottom:30px;
 }
