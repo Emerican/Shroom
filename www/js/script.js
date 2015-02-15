@@ -120,16 +120,16 @@ jQuery(function()
   }
   );
 
-  nfc.addNdefListener(
-    function() {
-    document.write("Found an NDEF formatted tag");
-    },
-    function() {
-    console.log("Success.");
-    },
-    function() {
-    console.log("Fail.");
-    }
-
-
 });
+
+nfc.addNdefListener(
+  function(nfcEvent) {
+  document.write("Found an NDEF formatted tag");
+  },
+  function() {
+  console.log("Success.");
+  },
+  function() {
+  console.log("Fail.");
+  }
+);
