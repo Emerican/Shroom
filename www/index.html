@@ -20,6 +20,7 @@
       <li id="settings_button"><button action="section/settings" style="border: 0; background: transparent"><span class="fa fa-gears fa-5x"></span></button></li>
       <li id="current_page_title"><p>Title</p></li>
       <li id="new_order_button"><button action="section/new_order" style="border: 0; background: transparent"><span class="fa fa-shopping-cart fa-5x"></span></button></li>
+
     </ul>
   </nav>
   <section id="main">
@@ -71,8 +72,9 @@
       <div class="field"><label for="surname">Uzvārds:</label><input type="text" id="surname"></div>
       <div class="field"><label for="phone">Tālrunis:</label><input type="number" id="phone"></div>
       <div class="field"><label for="email">E-Pasts:</label><input type="email" id="email"></div>
-      <div class="field>"><label for="group">Grupa:</label><select></select></div> <!-- placeholder for now -->
+      <div class="field>"><label for="group">Grupa:</label><select id="user_group_list"><option id="options"></option></select></div> <!-- placeholder for now -->
       <div id="new_user_btn">Submit</div>
+      <div id="testbtn">Test</div>
     </form>
   </section>
 
@@ -102,10 +104,10 @@
   <section id="new_order">
     <div id="product_side">
       <ul>
-        <li><button id="coctails" style="border: 0; background: transparent">Burciņas</button></li>
-        <li><button id="food" style="border: 0; background: transparent">Ēdiens</button></li>
-        <li><button id="shots" style="border: 0; background: transparent">Šoti</button></li>
-        <li><button id="soft_drinks" style="border: 0; background: transparent">Mīksto dziras</button></li>
+        <li><div class="coctails" style="border: 0; background: transparent">Burciņas</div></li>
+        <li><div id="food" style="border: 0; background: transparent">Ēdiens</div></li>
+        <li><div id="shots" style="border: 0; background: transparent">Šoti</div></li>
+        <li><div id="soft_drinks" style="border: 0; background: transparent">Mīksto dziras</div></li>
       </ul>
     </div>
     <div id="active_order_side">
@@ -123,6 +125,7 @@
   <script type="text/javascript" src="cordova.js"></script>
   <script type="text/javascript" src="js/jquery-2.1.3.min.js"> </script>
   <script type="text/javascript" src="js/uuid.core.js"></script>
+  <script type="text/javascript" src="js/phonegap-nfc.js"></script>
 
   <script type="text/javascript" src="js/script.js"></script>
   <script type="text/javascript" src="js/ajax.js"></script>
